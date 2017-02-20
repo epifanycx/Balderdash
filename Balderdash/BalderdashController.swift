@@ -9,7 +9,7 @@
 import Foundation
 
 public class BalderdashController: NSObject {
-    var model = [[Double]]()
+    var model = [String : Double]()
     var threshold: Double?
 
     public override init() {
@@ -30,8 +30,8 @@ public class BalderdashController: NSObject {
             let json = try JSONSerialization.jsonObject(with: data, options: [])
             if let object = json as? [String: Any] {
                 // json is a dictionary
-                self.model = object["mat"] as! [[Double]]
-                self.threshold = object["thresh"] as? Double
+                self.model = object["probabilities"] as! [String: Double]
+                self.threshold = object["threshold"] as? Double
             } else {
                 fatalError("File not in correct format")
             }
@@ -43,22 +43,16 @@ public class BalderdashController: NSObject {
     public func isGiberrish(string: String) -> Bool {
         var logProbability = 0.0
         var transitionCount = 0.0
-        let acceptedChars = "abcdefghijklmnopqrstuvwxyz ".characters.map{String($0)}
 
         for ngram in string.lowercased().ngrams(2) {
-            //skip ngrams that don't contain our accepted characters
-            if let firstIndex = acceptedChars.index(of: ngram[0]), let secondIndex = acceptedChars.index(of: ngram[1]) {
-                let firstArray = model[firstIndex]
-                let prob = firstArray[secondIndex]
-                logProbability += prob
+            if let probability = self.model[ngram.joined()] {
+                logProbability += probability
                 transitionCount += 1
-            } else {
-                //ngram contains an unusual character, so we skip it.
             }
         }
 
         let avgLogProb = logProbability / transitionCount
-        return exp(avgLogProb) > self.threshold!
+        return exp(avgLogProb) < self.threshold!
     }
 
 }

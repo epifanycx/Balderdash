@@ -40,24 +40,23 @@ class BalderdashTests: XCTestCase {
     func testIsGibberish() {
         let gibberishController = BalderdashController()
         let bundle = Bundle(for: self.classForCoder)
-        let path = bundle.path(forResource: "gib_model", ofType: "json")
+        let path = bundle.path(forResource: "trained_data", ofType: "json")
         let url = URL(fileURLWithPath: path!)
         gibberishController.loadFile(url: url)
 
         let result = gibberishController.isGiberrish(string: "adfjas;dkj;")
-        XCTAssertFalse(result)
+        XCTAssertTrue(result)
     }
 
     func testIsNotGibberish() {
         let gibberishController = BalderdashController()
         let bundle = Bundle(for: self.classForCoder)
-        let path = bundle.path(forResource: "gib_model", ofType: "json")
+        let path = bundle.path(forResource: "trained_data", ofType: "json")
         let url = URL(fileURLWithPath: path!)
         gibberishController.loadFile(url: url)
 
         let result = gibberishController.isGiberrish(string: "This is not gibberish")
-        XCTAssertTrue(result)
-
+        XCTAssertFalse(result)
     }
 
 }

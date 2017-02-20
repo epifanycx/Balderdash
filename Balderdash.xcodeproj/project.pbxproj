@@ -12,10 +12,10 @@
 		E7435B1D1E5B47BD0035394E /* Balderdash.h in Headers */ = {isa = PBXBuildFile; fileRef = E7435B0F1E5B47BD0035394E /* Balderdash.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7435B271E5B48B90035394E /* Ngrams.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7435B261E5B48B90035394E /* Ngrams.swift */; };
 		E7435B2C1E5B5FB50035394E /* BalderdashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7435B2B1E5B5FB50035394E /* BalderdashController.swift */; };
-		E7435B2E1E5B60C90035394E /* gib_model.json in Resources */ = {isa = PBXBuildFile; fileRef = E7435B2D1E5B60C90035394E /* gib_model.json */; };
-		E7435B2F1E5B62BB0035394E /* gib_model.json in Resources */ = {isa = PBXBuildFile; fileRef = E7435B2D1E5B60C90035394E /* gib_model.json */; };
 		E7435B301E5B637C0035394E /* BalderdashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7435B2B1E5B5FB50035394E /* BalderdashController.swift */; };
 		E7435B311E5B637F0035394E /* Ngrams.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7435B261E5B48B90035394E /* Ngrams.swift */; };
+		E7435B341E60D8D20035394E /* trained_data.json in Resources */ = {isa = PBXBuildFile; fileRef = E7435B331E60D8D20035394E /* trained_data.json */; };
+		E7435B351E60DA0C0035394E /* trained_data.json in Resources */ = {isa = PBXBuildFile; fileRef = E7435B331E60D8D20035394E /* trained_data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +37,7 @@
 		E7435B1C1E5B47BD0035394E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7435B261E5B48B90035394E /* Ngrams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ngrams.swift; sourceTree = "<group>"; };
 		E7435B2B1E5B5FB50035394E /* BalderdashController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalderdashController.swift; sourceTree = "<group>"; };
-		E7435B2D1E5B60C90035394E /* gib_model.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gib_model.json; sourceTree = "<group>"; };
+		E7435B331E60D8D20035394E /* trained_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trained_data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 		E7435B0E1E5B47BC0035394E /* Balderdash */ = {
 			isa = PBXGroup;
 			children = (
-				E7435B2D1E5B60C90035394E /* gib_model.json */,
+				E7435B331E60D8D20035394E /* trained_data.json */,
 				E7435B0F1E5B47BD0035394E /* Balderdash.h */,
 				E7435B101E5B47BD0035394E /* Info.plist */,
 				E7435B261E5B48B90035394E /* Ngrams.swift */,
@@ -192,7 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7435B2E1E5B60C90035394E /* gib_model.json in Resources */,
+				E7435B341E60D8D20035394E /* trained_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +200,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7435B2F1E5B62BB0035394E /* gib_model.json in Resources */,
+				E7435B351E60DA0C0035394E /* trained_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
