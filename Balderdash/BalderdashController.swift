@@ -9,11 +9,17 @@
 import Foundation
 
 public class BalderdashController: NSObject {
-    var model = [String : Double]()
-    var threshold: Double?
+    private var model = [String : Double]()
+    private var threshold: Double?
+    public var minimumUniqueCharacters: Int?
 
     public override init() {
         super.init()
+    }
+
+    public convenience init(modelName: String, minimumUniqueCharacters: Int) {
+        self.init(modelName: modelName)
+        self.minimumUniqueCharacters = minimumUniqueCharacters
     }
 
     public init(modelName: String) {
@@ -41,6 +47,10 @@ public class BalderdashController: NSObject {
     }
 
     public func isGiberrish(string: String) -> Bool {
+        return !(self.isTransitionallyProbable(string: string) && self.hasMinimumUniqueCharacters(string: string))
+    }
+
+    private func isTransitionallyProbable(string: String) -> Bool {
         var logProbability = 0.0
         var transitionCount = 0.0
 
@@ -52,7 +62,27 @@ public class BalderdashController: NSObject {
         }
 
         let avgLogProb = logProbability / transitionCount
-        return exp(avgLogProb) < self.threshold!
+        return exp(avgLogProb) > self.threshold!
     }
 
+    private func hasMinimumUniqueCharacters(string: String) -> Bool {
+        var characterDictionary = [Character: Int]()
+        for character in string.characters {
+            if let value = characterDictionary[character] {
+                characterDictionary.updateValue(value + 1, forKey: character)
+            } else {
+                characterDictionary[character] = 1
+            }
+        }
+
+        if let minimumCharacterCount = self.minimumUniqueCharacters {
+            if characterDictionary.count >= minimumCharacterCount {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
 }
