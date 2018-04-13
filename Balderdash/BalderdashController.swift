@@ -60,7 +60,7 @@ public class BalderdashController: NSObject {
                 transitionCount += 1
             }
         }
-
+        hasRepetition(string: string)
         let avgLogProb = logProbability / transitionCount
         return exp(avgLogProb) > self.threshold!
     }

@@ -67,4 +67,25 @@ class BalderdashTests: XCTestCase {
         XCTAssertFalse(result)
     }
 
+    func testRepetitionFalse() {
+        let gibberishController = BalderdashController()
+        let bundle = Bundle(for: self.classForCoder)
+        let path = bundle.path(forResource: "trained_data", ofType: "json")
+        let url = URL(fileURLWithPath: path!)
+        gibberishController.loadFile(url: url)
+
+        let result = gibberishController.hasRepetition(string: "this has no repetition ..")
+        XCTAssertFalse(result)
+    }
+
+    func testRepetitionTrue() {
+        let gibberishController = BalderdashController()
+        let bundle = Bundle(for: self.classForCoder)
+        let path = bundle.path(forResource: "trained_data", ofType: "json")
+        let url = URL(fileURLWithPath: path!)
+        gibberishController.loadFile(url: url)
+
+        let result = gibberishController.hasRepetition(string: "this has repetition aaa")
+        XCTAssertTrue(result)
+    }
 }
