@@ -12,6 +12,7 @@ public class BalderdashController: NSObject {
     private var model = [String : Double]()
     private var threshold: Double?
     public var minimumUniqueCharacters: Int?
+     let pattern = try? NSRegularExpression(pattern: ".*(.)\\1{2}.*", options: .caseInsensitive)
 
     public override init() {
         super.init()
@@ -47,7 +48,7 @@ public class BalderdashController: NSObject {
     }
 
     public func isGiberrish(string: String) -> Bool {
-        return !(self.isTransitionallyProbable(string: string) && self.hasMinimumUniqueCharacters(string: string))
+        return !(self.isTransitionallyProbable(string: string) && self.hasMinimumUniqueCharacters(string: string)) || self.hasRepetition(string: string)
     }
 
     private func isTransitionallyProbable(string: String) -> Bool {
@@ -60,7 +61,6 @@ public class BalderdashController: NSObject {
                 transitionCount += 1
             }
         }
-        hasRepetition(string: string)
         let avgLogProb = logProbability / transitionCount
         return exp(avgLogProb) > self.threshold!
     }
@@ -84,5 +84,10 @@ public class BalderdashController: NSObject {
         } else {
             return true
         }
+    }
+
+    func hasRepetition(string: String) -> Bool {
+        let results = pattern?.matches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count))
+        return results!.count > 0
     }
 }
