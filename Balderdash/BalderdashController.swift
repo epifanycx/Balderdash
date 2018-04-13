@@ -11,6 +11,7 @@ import Foundation
 public class BalderdashController: NSObject {
     var model = [String : Double]()
     var threshold: Double?
+    let pattern = try? NSRegularExpression(pattern: ".*(.)\\1{2}.*", options: .caseInsensitive)
 
     public override init() {
         super.init()
@@ -50,9 +51,14 @@ public class BalderdashController: NSObject {
                 transitionCount += 1
             }
         }
-
+        hasRepetition(string: string)
         let avgLogProb = logProbability / transitionCount
-        return exp(avgLogProb) < self.threshold!
+        return exp(avgLogProb) < self.threshold! || hasRepetition(string: string)
+    }
+
+    func hasRepetition(string: String) -> Bool {
+        let results = pattern?.matches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count))
+        return results!.count > 0
     }
 
 }
