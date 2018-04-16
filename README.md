@@ -9,6 +9,17 @@ A simple gibberish detection library for iOS
 
 ```pod install Balderdash```
 
+### Usage
+
+    balderdash = BalderdashController()
+    let bundle = Bundle(for: self.classForCoder)
+    let path = bundle.path(forResource: "trained_data", ofType: "json")
+    let url = URL(fileURLWithPath: path!)
+    balderdash.loadFile(url: url)
+
+    let string = "This is a test"
+    balderdash.isGibberish(string)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

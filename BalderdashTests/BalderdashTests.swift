@@ -10,12 +10,18 @@ import XCTest
 @testable import Balderdash
 
 class BalderdashTests: XCTestCase {
-    
+    var gibberishController = BalderdashController()
+
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+
+        gibberishController = BalderdashController()
+        let bundle = Bundle(for: self.classForCoder)
+        let path = bundle.path(forResource: "trained_data", ofType: "json")
+        let url = URL(fileURLWithPath: path!)
+        gibberishController.loadFile(url: url)
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
@@ -38,25 +44,48 @@ class BalderdashTests: XCTestCase {
     }
 
     func testIsGibberish() {
-        let gibberishController = BalderdashController()
-        let bundle = Bundle(for: self.classForCoder)
-        let path = bundle.path(forResource: "trained_data", ofType: "json")
-        let url = URL(fileURLWithPath: path!)
-        gibberishController.loadFile(url: url)
-
         let result = gibberishController.isGiberrish(string: "adfjas;dkj;")
         XCTAssertTrue(result)
     }
 
+    func testHasMinimumUniqueCharacterCount() {
+        gibberishController.minimumUniqueCharacters = 4
+
+        let result = gibberishController.isGiberrish(string: "This is valid")
+        XCTAssertFalse(result)
+    }
+
+    func testDoesNotHaveMinimumUniqueCharacterCount() {
+        gibberishController.minimumUniqueCharacters = 4
+
+        let result = gibberishController.isGiberrish(string: "ffffff")
+        XCTAssertTrue(result)
+    }
+
     func testIsNotGibberish() {
+        let result = gibberishController.isGiberrish(string: "This is not gibberish")
+        XCTAssertFalse(result)
+    }
+
+    func testRepetitionFalse() {
         let gibberishController = BalderdashController()
         let bundle = Bundle(for: self.classForCoder)
         let path = bundle.path(forResource: "trained_data", ofType: "json")
         let url = URL(fileURLWithPath: path!)
         gibberishController.loadFile(url: url)
 
-        let result = gibberishController.isGiberrish(string: "This is not gibberish")
+        let result = gibberishController.hasRepetition(string: "this has no repetition ..")
         XCTAssertFalse(result)
     }
 
+    func testRepetitionTrue() {
+        let gibberishController = BalderdashController()
+        let bundle = Bundle(for: self.classForCoder)
+        let path = bundle.path(forResource: "trained_data", ofType: "json")
+        let url = URL(fileURLWithPath: path!)
+        gibberishController.loadFile(url: url)
+
+        let result = gibberishController.hasRepetition(string: "this has repetition aaa")
+        XCTAssertTrue(result)
+    }
 }

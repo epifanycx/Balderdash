@@ -9,11 +9,18 @@
 import Foundation
 
 public class BalderdashController: NSObject {
-    var model = [String : Double]()
-    var threshold: Double?
+    private var model = [String : Double]()
+    private var threshold: Double?
+    public var minimumUniqueCharacters: Int?
+     let pattern = try? NSRegularExpression(pattern: ".*(.)\\1{2}.*", options: .caseInsensitive)
 
     public override init() {
         super.init()
+    }
+
+    public convenience init(modelName: String, minimumUniqueCharacters: Int) {
+        self.init(modelName: modelName)
+        self.minimumUniqueCharacters = minimumUniqueCharacters
     }
 
     public init(modelName: String) {
@@ -41,6 +48,10 @@ public class BalderdashController: NSObject {
     }
 
     public func isGiberrish(string: String) -> Bool {
+        return !(self.isTransitionallyProbable(string: string) && self.hasMinimumUniqueCharacters(string: string)) || self.hasRepetition(string: string)
+    }
+
+    private func isTransitionallyProbable(string: String) -> Bool {
         var logProbability = 0.0
         var transitionCount = 0.0
 
@@ -50,9 +61,33 @@ public class BalderdashController: NSObject {
                 transitionCount += 1
             }
         }
-
         let avgLogProb = logProbability / transitionCount
-        return exp(avgLogProb) < self.threshold!
+        return exp(avgLogProb) > self.threshold!
     }
 
+    private func hasMinimumUniqueCharacters(string: String) -> Bool {
+        var characterDictionary = [Character: Int]()
+        for character in string.characters {
+            if let value = characterDictionary[character] {
+                characterDictionary.updateValue(value + 1, forKey: character)
+            } else {
+                characterDictionary[character] = 1
+            }
+        }
+
+        if let minimumCharacterCount = self.minimumUniqueCharacters {
+            if characterDictionary.count >= minimumCharacterCount {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+
+    func hasRepetition(string: String) -> Bool {
+        let results = pattern?.matches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count))
+        return results!.count > 0
+    }
 }
