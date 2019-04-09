@@ -10,7 +10,7 @@ import Foundation
 
 public extension String {
 
-    public func ngrams(_ n: Int) -> Array<Array<String>> {
+    func ngrams(_ n: Int) -> Array<Array<String>> {
 
         let items: [String] = map{String($0)}
         var ngrams: [[String]] = []
