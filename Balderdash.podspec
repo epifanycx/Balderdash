@@ -53,10 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Kelend" => "dirk.a.smith@gmail.com" }
-  # Or just: s.author    = "Kelend"
-  # s.authors            = { "Kelend" => "dirk.a.smith@gmail.com" }
-  # s.social_media_url   = "http://twitter.com/Kelend"
+  s.author             = { "Shawn Murphy" => "shawn.murphy@epifany.com" }
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -134,6 +131,6 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+  # s.dependency "JSONKit", "~> 1.5"
 
 end
