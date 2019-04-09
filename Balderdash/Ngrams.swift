@@ -11,7 +11,8 @@ import Foundation
 public extension String {
 
     public func ngrams(_ n: Int) -> Array<Array<String>> {
-        let items: [String] = characters.map{String($0)}
+
+        let items: [String] = map{String($0)}
         var ngrams: [[String]] = []
 
         for (index, _) in items.enumerated() {

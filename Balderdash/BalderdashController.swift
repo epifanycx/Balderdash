@@ -67,7 +67,7 @@ public class BalderdashController: NSObject {
 
     private func hasMinimumUniqueCharacters(string: String) -> Bool {
         var characterDictionary = [Character: Int]()
-        for character in string.characters {
+        for character in string {
             if let value = characterDictionary[character] {
                 characterDictionary.updateValue(value + 1, forKey: character)
             } else {
@@ -87,7 +87,7 @@ public class BalderdashController: NSObject {
     }
 
     func hasRepetition(string: String) -> Bool {
-        let results = pattern?.matches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count))
+        let results = pattern?.matches(in: string, options: [], range: NSRange(location: 0, length: string.count))
         return results!.count > 0
     }
 }
